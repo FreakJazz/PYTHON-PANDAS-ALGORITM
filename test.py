@@ -12,6 +12,10 @@ class Data_analisys():
         initial = 0
         final = 200
 
+        #########################################################
+        #################### AMPLITUD ###########################
+        #########################################################
+s
         f_amplitude = pd.read_excel('falla_amplitud.xlsx', sheet_name = ['data'])
         df_famp = f_amplitude['data']
         print(df_famp)
