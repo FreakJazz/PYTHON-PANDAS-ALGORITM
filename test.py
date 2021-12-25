@@ -15,7 +15,7 @@ class Data_analisys():
         #########################################################
         #################### AMPLITUD ###########################
         #########################################################
-s
+
         f_amplitude = pd.read_excel('falla_amplitud.xlsx', sheet_name = ['data'])
         df_famp = f_amplitude['data']
         print(df_famp)
@@ -33,6 +33,14 @@ s
         nfail_amp = nfail_amp.to_numpy()
         time = df_famp['TIEMPO']
         time = time.to_numpy()
+
+        plt.plot(time, fail_amp,  color = 'blue')
+        plt.plot(time, nfail_amp,  color = 'red')
+        plt.title('GRAFICA AMPLITUD COMPLETA')
+        plt.xlabel('TIME')
+        plt.ylabel('AMPLITUDE')
+        plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
+        plt.show()
 
         error = nfail_amp - fail_amp
 
@@ -54,6 +62,9 @@ s
         plt.plot(time[initial:final], falla[initial:final], color = 'green')
         plt.plot(time[initial:final], n_falla[initial:final], color = 'blue')
         plt.title('GRAFICA SEGUNDA TRANSFORMADA AMPLITUD')
+        plt.xlabel('TIME')
+        plt.ylabel('AMPLITUDE')
+        plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
         plt.show()
 
         plt.plot(time[initial:final], fail_amp[initial:final], color = 'blue')
@@ -86,6 +97,14 @@ s
         time = df_nffrec['TIEMPO']
         time = time.to_numpy()
 
+        plt.plot(time, fail_frec,  color = 'blue')
+        plt.plot(time, nfail_frec,  color = 'red')
+        plt.title('GRAFICA AMPLITUD COMPLETA')
+        plt.xlabel('TIME')
+        plt.ylabel('FRECUENCY')
+        plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
+        plt.show()
+
         error_frec = nfail_frec - fail_frec
 
         ff_s = np.sin(90 * 2 * np.pi * fail_frec) + 0.5 * np.sin(90 * 2 * np.pi * fail_frec)
@@ -106,18 +125,21 @@ s
         plt.plot(time[initial:final], falla[initial:final], color = 'green')
         plt.plot(time[initial:final], n_falla[initial:final], color = 'blue')
         plt.title('GRAFICA SEGUNDA TRANSFORMADA FRECUENCIA')
+        plt.xlabel('TIME')
+        plt.ylabel('FRECUENCY')
+        plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
         plt.show()
 
-        plt.plot(time[initial:final], fail_amp[initial:final], color = 'blue')
-        plt.plot(time[initial:final], nfail_amp[initial:final], color = 'red')
+        plt.plot(time[initial:final], fail_frec[initial:final], color = 'blue')
+        plt.plot(time[initial:final], nfail_frec[initial:final], color = 'red')
         plt.title('GRAFICA COMPARACIÓN FRECUENCIA')
         plt.xlabel('TIME')
         plt.ylabel('FRECUENCY')
         plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
         plt.show()
 
-        plt.scatter(time[initial:final], fail_amp[initial:final], color = 'blue')
-        plt.scatter(time[initial:final], nfail_amp[initial:final], color = 'red')
+        plt.scatter(time[initial:final], fail_frec[initial:final], color = 'blue')
+        plt.scatter(time[initial:final], nfail_frec[initial:final], color = 'red')
         plt.title('GRAFICA VERIFICACIÓN FRECUENCIA')
         plt.xlabel('TIME')
         plt.ylabel('FRECUENCY')

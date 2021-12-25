@@ -1,5 +1,9 @@
 import sys
 import pandas as pd
+from datetime import time
+from os import error
+import sys
+import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -9,144 +13,138 @@ class Data_analisys():
     def __init__(self, parent = None):
         initial = 0
         final = 200
-        # Fallas 
+
+        #########################################################
+        #################### AMPLITUD ###########################
+        #########################################################
+
         f_amplitude = pd.read_excel('falla_amplitud.xlsx', sheet_name = ['data'])
         df_famp = f_amplitude['data']
         print(df_famp)
-        df_famp.plot(x = 'AMPLITUD', y = 'TIEMPO')
-        plt.show()
-
-        
-        fa_amplitud = []
-        fa_tiempo = []
-        fa_data_form = []
-        fa_data_form1 = []
-        fa_s = []
-        # df_famp.AMPLITUD.to_numpy()
-        # print(df_famp.AMPLITUD.to_numpy())
-
-        for x in range(initial, final):
-            fa_amplitud.append(df_famp.AMPLITUD[x])
-            fa_tiempo.append(df_famp.TIEMPO[x])
-            fa_data_form.append(df_famp.WaveformData[x])
-            fa_data_form1.append(df_famp.WaveformData1[x])
-            fa_s.append(np.sin(40 * 2 * np.pi * df_famp.AMPLITUD[x]) + 0.5 * np.sin(90 * 2 * np.pi * df_famp.AMPLITUD[x]))
-
-        data = {
-            'amplitud': fa_amplitud,
-            'tiempo': fa_tiempo,
-            'data_form': fa_data_form,
-            'data_form1': fa_data_form1
-        }
-        df = pd.DataFrame(data)
-        
-        print(df)
-        print('amplitud', fa_amplitud)
-        print('tiempo', fa_tiempo)
-        print('data', fa_data_form)
-        print('data1', fa_data_form1)
-
-        plt.plot(fa_amplitud, fa_tiempo, color = 'black')
-        plt.show()
-        plt.plot(fa_amplitud, fa_s, color = 'green')
+        df_famp.plot(x = 'TIEMPO', y = 'F_AMPLITUD',  color = 'blue')
+        df_famp.plot(x = 'TIEMPO', y = 'NF_AMPLITUD',  color = 'red')
+        plt.title('GRAFICA AMPLITUD')
+        plt.xlabel('TIME')
+        plt.ylabel('AMPLITUDE')
+        plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
         plt.show()
         
-        f_frecuencia = pd.read_excel('falla_frecuencia.xlsx', sheet_name = ['data'])
-        df_ffrec = f_frecuencia['data']
-        print(df_ffrec)
-        df_ffrec.plot(x = 'FRECUENCIA', y = 'TIEMPO')
-        plt.show()
+        fail_amp = df_famp['F_AMPLITUD']
+        fail_amp = fail_amp.to_numpy()
+        nfail_amp = df_famp['NF_AMPLITUD']
+        nfail_amp = nfail_amp.to_numpy()
+        time = df_famp['TIEMPO']
+        time = time.to_numpy()
 
-        ff_frecuencia = []
-        ff_tiempo = []
-        ff_data_form = []
-        ff_data_form1 = []
-
-        for x in range(initial, final):
-            ff_frecuencia.append(df_ffrec.FRECUENCIA[x])
-            ff_tiempo.append(df_ffrec.TIEMPO[x])
-            ff_data_form.append(df_ffrec.WaveformData[x])
-            ff_data_form1.append(df_ffrec.WaveformData1[x])
-
-        plt.plot(ff_frecuencia, ff_tiempo, color = 'black')
-        plt.show()
-        
-        # No fallas
-        nf_amplitude = pd.read_excel('no_falla_tiempo.xlsx', sheet_name = ['data'])
-        df_nfamp = nf_amplitude['data']
-        df_nfamp.plot(x = 'AMPLITUD', y = 'TIEMPO')
-        plt.show()
-        nfa_amplitud = []
-        nfa_tiempo = []
-        nfa_data_form = []
-        nfa_data_form1 = []
-        nfa_s = []
-        # df_famp.AMPLITUD.to_numpy()
-        # print(df_famp.AMPLITUD.to_numpy())
-
-        for x in range(initial, final):
-            nfa_amplitud.append(df_nfamp.AMPLITUD[x])
-            nfa_tiempo.append(df_nfamp.TIEMPO[x])
-            nfa_data_form.append(df_nfamp.WaveformData[x])
-            nfa_data_form1.append(df_nfamp.WaveformData1[x])
-            nfa_s.append(np.sin(40 * 2 * np.pi * df_nfamp.AMPLITUD[x]) + 0.5 * np.sin(90 * 2 * np.pi * df_nfamp.AMPLITUD[x]))
-
-        
-        data = {
-            'amplitud': nfa_amplitud,
-            'tiempo': nfa_tiempo,
-            'data_form': nfa_data_form,
-            'data_form1': nfa_data_form1
-        }
-        df = pd.DataFrame(data)
-        
-        print(df)
-        print('amplitud', nfa_amplitud)
-        print('tiempo', nfa_tiempo)
-        print('data', nfa_data_form)
-        print('data1', nfa_data_form1)
-
-        plt.plot(nfa_amplitud, nfa_tiempo, color = 'black')
-        plt.show()
-       
-        plt.plot(nfa_amplitud, nfa_s, color = 'green')
-        plt.show()
-
-
-        nf_frecuencia = pd.read_excel('no_falla_frecuencia.xlsx', sheet_name = ['data'])
-        df_nffrec = nf_frecuencia['data']
-        print(df_nffrec)
-        df_nffrec.plot(x = 'FRECUENCIA', y = 'TIEMPO')
-        plt.show()
-
-        nff_frecuencia = [] 
-        nff_tiempo = []
-        nff_data_form = []
-        nff_data_form1 = []
-
-        for x in range(initial, final):
-            nff_frecuencia.append(df_nffrec.FRECUENCIA[x])
-            nff_tiempo.append(df_nffrec.TIEMPO[x])
-            nff_data_form.append(df_nffrec.WaveformData[x])
-            nff_data_form1.append(df_nffrec.WaveformData1[x])
-
-        plt.plot(nff_frecuencia, nff_tiempo, color = 'black')
-        plt.show()
-        
-
-        ########################
-        ## COMPARATE ###
-        plt.plot(fa_amplitud, fa_tiempo, color = 'blue')
-        plt.plot(nfa_amplitud, nfa_tiempo, color = 'red')
+        plt.plot(time, fail_amp,  color = 'blue')
+        plt.plot(time, nfail_amp,  color = 'red')
+        plt.title('GRAFICA AMPLITUD COMPLETA')
         plt.xlabel('TIME')
         plt.ylabel('AMPLITUDE')
         plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
         plt.show()
 
-        plt.plot(ff_frecuencia, ff_tiempo, color = 'blue')
-        plt.plot(nff_frecuencia, nff_tiempo, color = 'red')
+        error = nfail_amp - fail_amp
+
+        fa_s = np.sin(90 * 2 * np.pi * fail_amp) + 0.5 * np.sin(90 * 2 * np.pi * fail_amp)
+        nfa_s = np.sin(90 * 2 * np.pi * nfail_amp) + 0.5 * np.sin(90 * 2 * np.pi * nfail_amp)
+
+        plt.plot(time[initial:final], error[initial:final], color = 'green')
+        plt.title('GRAFICA ERROR AMPLITUD')
+        plt.show()
+        plt.plot(time[initial:final], fa_s[initial:final], color = 'blue')
+        plt.title('GRAFICA TRA_FALLA AMPLITUD')
+        plt.show()    
+        plt.plot(time[initial:final], nfa_s[initial:final], color = 'red')
+        plt.title('GRAFICA TRA_SIN_FALLA AMPLITUD')
+        plt.show()
+
+        falla = np.fft.fft(fail_amp)
+        n_falla = np.fft.fft(nfail_amp)
+        plt.plot(time[initial:final], falla[initial:final], color = 'green')
+        plt.plot(time[initial:final], n_falla[initial:final], color = 'blue')
+        plt.title('GRAFICA SEGUNDA TRANSFORMADA AMPLITUD')
         plt.xlabel('TIME')
         plt.ylabel('AMPLITUDE')
+        plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
+        plt.show()
+
+        plt.plot(time[initial:final], fail_amp[initial:final], color = 'blue')
+        plt.plot(time[initial:final], nfail_amp[initial:final], color = 'red')
+        plt.title('GRAFICA COMPARACIÓN AMPLITUD')
+        plt.xlabel('TIME')
+        plt.ylabel('AMPLITUDE')
+        plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
+        plt.show()
+
+        plt.scatter(time[initial:final], fail_amp[initial:final], color = 'blue')
+        plt.scatter(time[initial:final], nfail_amp[initial:final], color = 'red')
+        plt.title('GRAFICA VERIFICACIÓN AMPLITUD')
+        plt.xlabel('TIME')
+        plt.ylabel('AMPLITUDE')
+        plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
+        plt.show()
+        
+        #########################################################
+        ################### FRECUENCIA ##########################
+        #########################################################
+
+        frecuencia = pd.read_excel('no_falla_frecuencia.xlsx', sheet_name = ['data'])
+        df_nffrec = frecuencia['data']
+        print(df_nffrec)
+        fail_frec = df_nffrec['F_FRECUENCIA']
+        fail_frec = fail_frec.to_numpy()
+        nfail_frec = df_nffrec['NF_FRECUENCIA']
+        nfail_frec = nfail_frec.to_numpy()
+        time = df_nffrec['TIEMPO']
+        time = time.to_numpy()
+
+        plt.plot(time, fail_frec,  color = 'blue')
+        plt.plot(time, nfail_frec,  color = 'red')
+        plt.title('GRAFICA AMPLITUD COMPLETA')
+        plt.xlabel('TIME')
+        plt.ylabel('FRECUENCY')
+        plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
+        plt.show()
+
+        error_frec = nfail_frec - fail_frec
+
+        ff_s = np.sin(90 * 2 * np.pi * fail_frec) + 0.5 * np.sin(90 * 2 * np.pi * fail_frec)
+        nff_s = np.sin(90 * 2 * np.pi * nfail_frec) + 0.5 * np.sin(90 * 2 * np.pi * nfail_frec)
+
+        plt.plot(time[initial:final], error_frec[initial:final], color = 'green')
+        plt.title('GRAFICA ERROR FRECUENCIA')
+        plt.show()
+        plt.plot(time[initial:final], ff_s[initial:final], color = 'blue')
+        plt.title('GRAFICA TRA_FALLA FRECUENCIA')
+        plt.show()    
+        plt.plot(time[initial:final], nff_s[initial:final], color = 'red')
+        plt.title('GRAFICA TRA_SIN_FALLA FRECUENCIA')
+        plt.show()
+
+        falla = np.fft.fft(fail_frec)
+        n_falla = np.fft.fft(nfail_frec)
+        plt.plot(time[initial:final], falla[initial:final], color = 'green')
+        plt.plot(time[initial:final], n_falla[initial:final], color = 'blue')
+        plt.title('GRAFICA SEGUNDA TRANSFORMADA FRECUENCIA')
+        plt.xlabel('TIME')
+        plt.ylabel('FRECUENCY')
+        plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
+        plt.show()
+
+        plt.plot(time[initial:final], fail_frec[initial:final], color = 'blue')
+        plt.plot(time[initial:final], nfail_frec[initial:final], color = 'red')
+        plt.title('GRAFICA COMPARACIÓN FRECUENCIA')
+        plt.xlabel('TIME')
+        plt.ylabel('FRECUENCY')
+        plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
+        plt.show()
+
+        plt.scatter(time[initial:final], fail_frec[initial:final], color = 'blue')
+        plt.scatter(time[initial:final], nfail_frec[initial:final], color = 'red')
+        plt.title('GRAFICA VERIFICACIÓN FRECUENCIA')
+        plt.xlabel('TIME')
+        plt.ylabel('FRECUENCY')
         plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
         plt.show()
 
