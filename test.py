@@ -16,7 +16,7 @@ class Data_analisys():
         #################### AMPLITUD ###########################
         #########################################################
 
-        f_amplitude = pd.read_excel('falla_amplitud.xlsx', sheet_name = ['data'])
+        f_amplitude = pd.read_excel('falla_amplituddesf.xlsx', sheet_name = ['data'])
         df_famp = f_amplitude['data']
         print(df_famp)
         df_famp.plot(x = 'TIEMPO', y = 'F_AMPLITUD',  color = 'blue')
@@ -43,12 +43,16 @@ class Data_analisys():
         plt.show()
 
         error = nfail_amp - fail_amp
+        s_error = np.fft.fft(error)
 
         fa_s = np.sin(90 * 2 * np.pi * fail_amp) + 0.5 * np.sin(90 * 2 * np.pi * fail_amp)
         nfa_s = np.sin(90 * 2 * np.pi * nfail_amp) + 0.5 * np.sin(90 * 2 * np.pi * nfail_amp)
 
         plt.plot(time[initial:final], error[initial:final], color = 'green')
         plt.title('GRAFICA ERROR AMPLITUD')
+        plt.show()
+        plt.plot(time[initial:final], s_error[initial:final], color = 'green')
+        plt.title('GRAFICA SEGUNDA_TRA ERROR AMPLITUD')
         plt.show()
         plt.plot(time[initial:final], fa_s[initial:final], color = 'blue')
         plt.title('GRAFICA TRA_FALLA AMPLITUD')
@@ -106,6 +110,7 @@ class Data_analisys():
         plt.show()
 
         error_frec = nfail_frec - fail_frec
+        s_error_frec = np.fft.fft(error_frec)
 
         ff_s = np.sin(90 * 2 * np.pi * fail_frec) + 0.5 * np.sin(90 * 2 * np.pi * fail_frec)
         nff_s = np.sin(90 * 2 * np.pi * nfail_frec) + 0.5 * np.sin(90 * 2 * np.pi * nfail_frec)
@@ -113,11 +118,18 @@ class Data_analisys():
         plt.plot(time[initial:final], error_frec[initial:final], color = 'green')
         plt.title('GRAFICA ERROR FRECUENCIA')
         plt.show()
+        plt.plot(time[initial:final], s_error_frec[initial:final], color = 'green')
+        plt.title('GRAFICA SEG_TRASNS ERROR FRECUENCIA')
+        plt.show()
         plt.plot(time[initial:final], ff_s[initial:final], color = 'blue')
         plt.title('GRAFICA TRA_FALLA FRECUENCIA')
+        plt.xlabel('TIME')
+        plt.ylabel('FRECUENCY')
         plt.show()    
         plt.plot(time[initial:final], nff_s[initial:final], color = 'red')
         plt.title('GRAFICA TRA_SIN_FALLA FRECUENCIA')
+        plt.xlabel('TIME')
+        plt.ylabel('FRECUENCY')
         plt.show()
 
         falla = np.fft.fft(fail_frec)
