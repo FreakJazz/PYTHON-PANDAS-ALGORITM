@@ -51,6 +51,7 @@ class Data_analisys():
         plt.plot(time[initial:final], error[initial:final], color = 'green')
         plt.title('GRAFICA ERROR AMPLITUD')
         plt.show()
+        
         plt.plot(time[initial:final], s_error[initial:final], color = 'green')
         plt.title('GRAFICA SEGUNDA_TRA ERROR AMPLITUD')
         plt.show()
@@ -63,6 +64,13 @@ class Data_analisys():
 
         falla = np.fft.fft(fail_amp)
         n_falla = np.fft.fft(nfail_amp)
+        
+        if falla.min() < n_falla.min():
+            print("falla_max",falla.min(), "no falla max",n_falla.min())
+            print("EXISTE FALLA")
+        else:
+            print("NO EXISTE FALLA")
+
         plt.plot(time[initial:final], falla[initial:final], color = 'green')
         plt.plot(time[initial:final], n_falla[initial:final], color = 'blue')
         plt.title('GRAFICA SEGUNDA TRANSFORMADA AMPLITUD')
@@ -100,12 +108,14 @@ class Data_analisys():
         nfail_frec = nfail_frec.to_numpy()
         time = df_nffrec['TIEMPO']
         time = time.to_numpy()
+        test = df_nffrec['test']
+        test = test.to_numpy()
 
         plt.plot(time, fail_frec,  color = 'blue')
         plt.plot(time, nfail_frec,  color = 'red')
         plt.title('GRAFICA AMPLITUD COMPLETA')
-        plt.xlabel('TIME')
-        plt.ylabel('FRECUENCY')
+        plt.xlabel('FRECUENCY')
+        plt.ylabel('ESPECTRO [DB]')
         plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
         plt.show()
 
@@ -114,7 +124,10 @@ class Data_analisys():
 
         ff_s = np.sin(90 * 2 * np.pi * fail_frec) + 0.5 * np.sin(90 * 2 * np.pi * fail_frec)
         nff_s = np.sin(90 * 2 * np.pi * nfail_frec) + 0.5 * np.sin(90 * 2 * np.pi * nfail_frec)
-
+        
+        plt.plot(time[initial:final], test[initial:final], color = 'green')
+        plt.title('GRAFICA test AMPLITUD')
+        plt.show()
         plt.plot(time[initial:final], error_frec[initial:final], color = 'green')
         plt.title('GRAFICA ERROR FRECUENCIA')
         plt.show()
@@ -123,38 +136,45 @@ class Data_analisys():
         plt.show()
         plt.plot(time[initial:final], ff_s[initial:final], color = 'blue')
         plt.title('GRAFICA TRA_FALLA FRECUENCIA')
-        plt.xlabel('TIME')
-        plt.ylabel('FRECUENCY')
+        plt.xlabel('FRECUENCY')
+        plt.ylabel('ESPECTRO [DB]')
         plt.show()    
         plt.plot(time[initial:final], nff_s[initial:final], color = 'red')
         plt.title('GRAFICA TRA_SIN_FALLA FRECUENCIA')
-        plt.xlabel('TIME')
-        plt.ylabel('FRECUENCY')
+        plt.xlabel('FRECUENCY')
+        plt.ylabel('')
         plt.show()
 
         falla = np.fft.fft(fail_frec)
         n_falla = np.fft.fft(nfail_frec)
+
+        if falla.min()< n_falla.min():
+            print("falla_max",falla.min(), "no falla max",n_falla.min())
+            print("EXISTE FALLA FRECUENCIA")
+        else:
+            print("NO EXISTE FALLA FRECUENCIA")
+
         plt.plot(time[initial:final], falla[initial:final], color = 'green')
         plt.plot(time[initial:final], n_falla[initial:final], color = 'blue')
         plt.title('GRAFICA SEGUNDA TRANSFORMADA FRECUENCIA')
-        plt.xlabel('TIME')
-        plt.ylabel('FRECUENCY')
+        plt.xlabel('FRECUENCY')
+        plt.ylabel('ESPECTRO [DB]')
         plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
         plt.show()
 
         plt.plot(time[initial:final], fail_frec[initial:final], color = 'blue')
         plt.plot(time[initial:final], nfail_frec[initial:final], color = 'red')
         plt.title('GRAFICA COMPARACIÓN FRECUENCIA')
-        plt.xlabel('TIME')
-        plt.ylabel('FRECUENCY')
+        plt.xlabel('FRECUENCY')
+        plt.ylabel('ESPECTRO [DB]')
         plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
         plt.show()
 
         plt.scatter(time[initial:final], fail_frec[initial:final], color = 'blue')
         plt.scatter(time[initial:final], nfail_frec[initial:final], color = 'red')
         plt.title('GRAFICA VERIFICACIÓN FRECUENCIA')
-        plt.xlabel('TIME')
-        plt.ylabel('FRECUENCY')
+        plt.xlabel('FRECUENCY')
+        plt.ylabel('ESPECTRO [DB]')
         plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
         plt.show()
 
