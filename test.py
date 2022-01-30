@@ -110,6 +110,29 @@ class Data_analisys():
         time = time.to_numpy()
         test = df_nffrec['test']
         test = test.to_numpy()
+        comp_fail = []
+        comp_nfail = []
+        comp_error = []
+        time1 = []
+        for x in range(0,len(nfail_frec)):
+            if fail_frec[x] > nfail_frec[x]:
+                comp_fail.append(fail_frec[x])
+                comp_nfail.append(nfail_frec[x])
+                time1.append(time[x])
+        for x in range(0,len(comp_fail)):
+
+            comp_error.append(comp_fail[x]-comp_nfail[x])      
+
+        plt.plot(time1, comp_fail,  color = 'blue')
+        plt.plot(time1, comp_nfail,  color = 'red')
+        plt.title('Grafica de la comparacion de fallas')
+        plt.xlabel('FRECUENCY')
+        plt.ylabel('ESPECTRO [DB]')
+        plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
+        plt.show()
+        plt.plot(time1, comp_error, color = 'blue')
+        plt.title('GRAFICA ERROR Comparacion')
+        plt.show()
 
         plt.plot(time, fail_frec,  color = 'blue')
         plt.plot(time, nfail_frec,  color = 'red')
