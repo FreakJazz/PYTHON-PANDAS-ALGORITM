@@ -68,21 +68,21 @@ def graphics_with_data(initial, final):
 
     fig, ax = plt.subplots(2)
 
-    ax[0].plot(time[initial:final], fail_amp[initial:final], color = 'blue')
-    ax[0].plot(time[initial:final], nfail_amp[initial:final], color = 'red')
+    plt.plot(time[initial:final], fail_amp[initial:final], color = 'blue')
+    plt.plot(time[initial:final], nfail_amp[initial:final], color = 'red')
     plt.title("GRAFICA COMPARACIÓN AMPLITUD")
     plt.xlabel("TIME")
     plt.ylabel("AMPLITUDE")
     plt.legend(["FAIL", "NO FAIL"], loc='upper left')
     plt.show()
 
-    ax[1].scatter(time[initial:final], fail_amp[initial:final], color = 'blue')
-    ax[1].scatter(time[initial:final], nfail_amp[initial:final], color = 'red')
-    plt.title("GRAFICA VERIFICACIÓN AMPLITUD")
-    plt.xlabel("TIME")
-    plt.ylabel("AMPLITUDE")
-    plt.legend(["FAIL", "NO FAIL"], loc='upper left')
-    plt.show()
+    # ax[1].scatter(time[initial:final], fail_amp[initial:final], color = 'blue')
+    # ax[1].scatter(time[initial:final], nfail_amp[initial:final], color = 'red')
+    # plt.title("GRAFICA VERIFICACIÓN AMPLITUD")
+    # plt.xlabel("TIME")
+    # plt.ylabel("AMPLITUDE")
+    # plt.legend(["FAIL", "NO FAIL"], loc='upper left')
+    # plt.show()
     
     #########################################################
     ################### FRECUENCIA ##########################
@@ -98,28 +98,28 @@ def graphics_with_data(initial, final):
     time = df_nffrec['TIEMPO']
     time = time.to_numpy()
 
-    plt.plot(time, fail_frec,  color = 'blue')
-    plt.plot(time, nfail_frec,  color = 'red')
-    plt.title('GRAFICA AMPLITUD COMPLETA')
-    plt.xlabel('TIME')
-    plt.ylabel('FRECUENCY')
-    plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
-    plt.show()
+    # plt.plot(time, fail_frec,  color = 'blue')
+    # plt.plot(time, nfail_frec,  color = 'red')
+    # plt.title('GRAFICA AMPLITUD COMPLETA')
+    # plt.xlabel('TIME')
+    # plt.ylabel('FRECUENCY')
+    # plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
+    # plt.show()
 
     error_frec = nfail_frec - fail_frec
 
-    ff_s = np.sin(90 * 2 * np.pi * fail_frec) + 0.5 * np.sin(90 * 2 * np.pi * fail_frec)
-    nff_s = np.sin(90 * 2 * np.pi * nfail_frec) + 0.5 * np.sin(90 * 2 * np.pi * nfail_frec)
+    # ff_s = np.sin(90 * 2 * np.pi * fail_frec) + 0.5 * np.sin(90 * 2 * np.pi * fail_frec)
+    # nff_s = np.sin(90 * 2 * np.pi * nfail_frec) + 0.5 * np.sin(90 * 2 * np.pi * nfail_frec)
 
     plt.plot(time[initial:final], error_frec[initial:final], color = 'green')
     plt.title('GRAFICA ERROR FRECUENCIA')
     plt.show()
-    plt.plot(time[initial:final], ff_s[initial:final], color = 'blue')
-    plt.title('GRAFICA TRA_FALLA FRECUENCIA')
-    plt.show()    
-    plt.plot(time[initial:final], nff_s[initial:final], color = 'red')
-    plt.title('GRAFICA TRA_SIN_FALLA FRECUENCIA')
-    plt.show()
+    # plt.plot(time[initial:final], ff_s[initial:final], color = 'blue')
+    # plt.title('GRAFICA TRA_FALLA FRECUENCIA')
+    # plt.show()    
+    # plt.plot(time[initial:final], nff_s[initial:final], color = 'red')
+    # plt.title('GRAFICA TRA_SIN_FALLA FRECUENCIA')
+    # plt.show()
 
     falla = np.fft.fft(fail_frec)
     n_falla = np.fft.fft(nfail_frec)
@@ -139,13 +139,13 @@ def graphics_with_data(initial, final):
     plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
     plt.show()
 
-    plt.scatter(time[initial:final], fail_frec[initial:final], color = 'blue')
-    plt.scatter(time[initial:final], nfail_frec[initial:final], color = 'red')
-    plt.title('GRAFICA VERIFICACIÓN FRECUENCIA')
-    plt.xlabel('TIME')
-    plt.ylabel('FRECUENCY')
-    plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
-    plt.show()
+    # plt.scatter(time[initial:final], fail_frec[initial:final], color = 'blue')
+    # plt.scatter(time[initial:final], nfail_frec[initial:final], color = 'red')
+    # plt.title('GRAFICA VERIFICACIÓN FRECUENCIA')
+    # plt.xlabel('TIME')
+    # plt.ylabel('FRECUENCY')
+    # plt.legend(['FAIL', 'NO FAIL'], loc='upper left')
+    # plt.show()
 
 def graphics_in_real():
     pass
