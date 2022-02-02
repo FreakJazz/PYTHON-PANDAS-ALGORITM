@@ -30,5 +30,5 @@ while 1:
         print ("Quit")
     break
 
-    client_socket.close()
-    server_socket.close()
+client_socket.close()
+server_socket.close()
