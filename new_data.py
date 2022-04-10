@@ -14,9 +14,9 @@ class DataAnalisys():
         count_corto = 0
         count_barras = 0
 
-        df_barras_rotas = pd.read_csv('DATOS/barras_rotas/DS0001.CSV')
-        df_corto_circuito = pd.read_csv('DATOS/cortocircuito/fase2/DS0001.CSV')
-        df_motor_sano = pd.read_csv('DATOS/motor_sano/DS0001.CSV')
+        df_barras_rotas = pd.read_csv('barras_rotas.CSV')
+        df_corto_circuito = pd.read_csv('cortocircuito1.CSV')
+        df_motor_sano = pd.read_csv('motor_sano.CSV')
         tiempo = np.linspace(0, 20, num = 1000)
 
         fail_br = df_barras_rotas['Data1']
