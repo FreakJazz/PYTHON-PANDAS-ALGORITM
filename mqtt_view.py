@@ -49,6 +49,8 @@ class Principal(QWidget):
         # create line edit box
         self.leHost = QLineEdit(self.frame2)
         self.leHost.move(0,0)
+        self.leHost.setText
+
 
         
         # add label PORT
@@ -187,6 +189,7 @@ class Principal(QWidget):
 def main():
     app = QApplication(sys.argv)
     w = Principal(title="MQTT CONFIG")
+    
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
